@@ -9,7 +9,7 @@
 
     styleSheet.innerHTML =
      `
-     .main-topBar-UpgradeButton, .hx2D0g_ursHte5bm62U2, .MnW5SczTcbdFHxLZ_Z8j, .WiPggcPDzbwGxoxwLWFf, .ReyA3uE3K7oEz7PTTnAn, .main-leaderboardComponent-container, .sponsor-container, a.link-subtle.main-navBar-navBarLink.GKnnhbExo0U9l7Jz2rdc{
+    .main-topBar-UpgradeButton, .MnW5SczTcbdFHxLZ_Z8j, .WiPggcPDzbwGxoxwLWFf, .ReyA3uE3K7oEz7PTTnAn, .main-leaderboardComponent-container, .sponsor-container, a.link-subtle.main-navBar-navBarLink.GKnnhbExo0U9l7Jz2rdc{
     display: none !important;
     }
     `
@@ -23,7 +23,19 @@
         // hook after call
         console.log("Adblock.js: Billboard blocked! Leave a star!")
         Spicetify.Platform.AdManagers.billboard.finish()
-        setTimeout(() => { Spicetify.Platform.AdManagers.billboard.finish(); }, 2000);
+        const observer = new MutationObserver((mutations, obs) => {
+            const billboardAd = document.getElementById('view-billboard-ad');
+            if (billboardAd) {
+                Spicetify.Platform.AdManagers.billboard.finish()
+                obs.disconnect();
+                return;
+            }
+        });
+
+        observer.observe(document, {
+            childList: true,
+            subtree: true
+        });
         return ret;
     };
     function delayAds() {
