@@ -1,3 +1,6 @@
+# Archive
+This repo doesn't add anything new anymore to the original adblock extension, charlie implemented all the changes I did in his original script so I'm archiving this
+
 # SpicetifyAdBlock
 This is an extension of @CharlieS1103 Ad blocker extension,
 most of the credit should go to him so go and drop a star at
